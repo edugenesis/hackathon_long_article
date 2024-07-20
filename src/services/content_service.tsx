@@ -39,7 +39,7 @@ export function ContentBlocks() {
     // console.log('Content blocks:', contentBlocks());
 
     return (
-        <div>
+        <div class="max-w-[90%] md:max-w-[75%] lg:max-w-[60%] mx-auto flex flex-col space-y-3 my-10">
             {data.data.map((block) => getElementForBlock(block))}
             {/*<For each={contentBlocks()}>*/}
             {/*    {task => getElementForBlock(task)}*/}
