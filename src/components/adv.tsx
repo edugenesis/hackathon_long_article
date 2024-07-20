@@ -9,17 +9,18 @@ export function Advert(props: { id: string }) {
 
   async function initAd() {
     setInited(true);
-    setInitedOnce(true);
 
     while (!isPbJSInited()) {
       await new Promise((r) => setTimeout(r, 100));
     }
 
-    if (!initedOnce()) {
-      runAdUnit(props.id);
-    } else {
+    if (initedOnce()) {
       requestBids(props.id);
+    } else {
+      runAdUnit(props.id);
     }
+
+    setInitedOnce(true);
   }
 
   function destroyAd() {
