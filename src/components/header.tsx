@@ -33,7 +33,7 @@ export function Header() {
 
     const checkScroll = () => {
         let st = window.scrollY || document.documentElement.scrollTop;
-        if (st > lastScrollTop) {
+        if (st > (lastScrollTop + 2)) {
             setIsScrolled(true);
         } else {
             setIsScrolled(false);
