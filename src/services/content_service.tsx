@@ -35,46 +35,49 @@ import { LoadAdsScript } from './LoadAdsScript';
 // }
 
 export function ContentBlocks() {
-    // const [contentBlocks] = createResource(fetchContentBlocksFromFile);
-    // console.log('Content blocks:', contentBlocks());
+  // const [contentBlocks] = createResource(fetchContentBlocksFromFile);
+  // console.log('Content blocks:', contentBlocks());
 
-    return (
-        <div class="max-w-[90%] md:max-w-[75%] lg:max-w-[60%] mx-auto flex flex-col space-y-3 my-10">
-            {data.data.map((block) => getElementForBlock(block))}
-            {/*<For each={contentBlocks()}>*/}
-            {/*    {task => getElementForBlock(task)}*/}
-            {/*</For>*/}
-            {/*<Suspense fallback={<div>Loading...</div>}>*/}
-            {/*    <Switch>*/}
-            {/*        <Match when={contentBlocks.error}>*/}
-            {/*            <span>Error: {contentBlocks.error()?.message}</span>*/}
-            {/*        </Match>*/}
-            {/*        <Match when={contentBlocks()}>*/}
-            {/*            <For each={contentBlocks()}>*/}
-            {/*                {task => getElementForBlock(task)}*/}
-            {/*            </For>*/}
-            {/*        </Match>*/}
-            {/*    </Switch>*/}
-            {/*</Suspense>*/}
-            <LoadAdsScript />
-        </div>
-    );
+  return (
+    <>
+      <LoadAdsScript />
+
+      <div class="max-w-[90%] md:max-w-[75%] lg:max-w-[60%] mx-auto flex flex-col space-y-3 my-10">
+        {data.data.map((block) => getElementForBlock(block))}
+        {/*<For each={contentBlocks()}>*/}
+        {/*    {task => getElementForBlock(task)}*/}
+        {/*</For>*/}
+        {/*<Suspense fallback={<div>Loading...</div>}>*/}
+        {/*    <Switch>*/}
+        {/*        <Match when={contentBlocks.error}>*/}
+        {/*            <span>Error: {contentBlocks.error()?.message}</span>*/}
+        {/*        </Match>*/}
+        {/*        <Match when={contentBlocks()}>*/}
+        {/*            <For each={contentBlocks()}>*/}
+        {/*                {task => getElementForBlock(task)}*/}
+        {/*            </For>*/}
+        {/*        </Match>*/}
+        {/*    </Switch>*/}
+        {/*</Suspense>*/}
+      </div>
+    </>
+  );
 }
 
 function getElementForBlock(content: (typeof data)['data'][number]) {
-    // console.log('Content:', content);
-    switch (content.type) {
-        case 'title':
-            return <Title content={content.content!} />;
-        case 'paragraph':
-            return <Paragraph content={content.content!} />;
-        case 'adv':
-            return <Advert id={content.id!} />;
-        case 'image':
-            return <Image src={content.src!} />;
-        case 'embed':
-            return <Embed url={content.url!} />;
-        case 'video':
-            return <Video id={content.id!} />;
-    }
+  // console.log('Content:', content);
+  switch (content.type) {
+    case 'title':
+      return <Title content={content.content!} />;
+    case 'paragraph':
+      return <Paragraph content={content.content!} />;
+    case 'adv':
+      return <Advert id={content.id!} />;
+    case 'image':
+      return <Image src={content.src!} />;
+    case 'embed':
+      return <Embed url={content.url!} />;
+    case 'video':
+      return <Video id={content.id!} />;
+  }
 }
