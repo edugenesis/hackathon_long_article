@@ -1,7 +1,7 @@
 import { Component, createEffect } from 'solid-js';
 import './app.css';
 import {ContentApiBlocks, ContentBlocks} from './components/ContentBlocks';
-import { Header } from '~/components/header';
+import { Header } from '~/components/Header';
 import { shouldAutoScroll, scrollHandler, scrollFunctionTriggerInterval } from '~/lib/auto_scroll';
 
 const App: Component = () => {

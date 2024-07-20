@@ -1,5 +1,5 @@
 ﻿import { createSignal, onCleanup, onMount } from 'solid-js';
-import { destroyAdUnit, isPbJSInited, requestBids, runAdUnit } from './ad_helpers';
+import { destroyAdUnit, isPbJSInited, requestBids, runAdUnit } from '../../lib/ad_helpers';
 
 export function Advert(props: { id: string, optimize: boolean }) {
   let div: HTMLDivElement | undefined;
