@@ -13,7 +13,7 @@ export function Embed(props: { url: string }) {
     onMount(async () => {
         if (!div) throw Error('embed div not found');
 
-        // embedo.load(div, props.url, {});
+        embedo.load(div, props.url, {});
     });
 
     return <div ref={div}/>;
