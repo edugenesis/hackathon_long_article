@@ -1,12 +1,11 @@
 import type { Component } from 'solid-js';
 
-import logo from './logo.svg';
-import styles from './App.module.css';
+import  './app.css';
 import { ContentBlocks } from './services/content_service';
 
 const App: Component = () => {
   return (
-    <div class={styles.App}>
+    <div>
       <ContentBlocks />
     </div>
   );
