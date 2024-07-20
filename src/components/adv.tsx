@@ -15,11 +15,11 @@ export function Advert(props: { id: string }) {
       await new Promise((r) => setTimeout(r, 100));
     }
 
-    if (initedOnce()) {
-      requestBids(props.id);
-    } else {
-      runAdUnit(props.id);
-    }
+    // if (initedOnce()) {
+    //   requestBids(props.id);
+    // } else {
+    //   runAdUnit(props.id);
+    // }
 
     setInitedOnce(true);
   }
