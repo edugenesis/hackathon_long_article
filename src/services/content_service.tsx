@@ -1,9 +1,12 @@
-﻿import { createResource, For, Match, Suspense, Switch } from 'solid-js';
-import { data } from '../../article';
+﻿import {createResource, For, Match, Suspense, Switch} from 'solid-js';
+import {data} from '../../article';
 import {Paragraph} from "~/components/paragraph";
 import {Advert} from "~/components/adv";
 import {Image} from "~/components/image";
 import {Embed} from "~/components/embed";
+import {Header} from "@kobalte/core/accordion";
+import {Title} from "~/components/title";
+import {Video} from "~/components/video";
 
 // enum ContentType{
 //     PARAGRAPH = 'paragraph',
@@ -31,43 +34,47 @@ import {Embed} from "~/components/embed";
 // }
 
 export function ContentBlocks() {
-  // const [contentBlocks] = createResource(fetchContentBlocksFromFile);
-  // console.log('Content blocks:', contentBlocks());
+    // const [contentBlocks] = createResource(fetchContentBlocksFromFile);
+    // console.log('Content blocks:', contentBlocks());
 
-  return (
-    <div>
-      {data.data.map((block) => getElementForBlock(block))}
-      {/*<For each={contentBlocks()}>*/}
-      {/*    {task => getElementForBlock(task)}*/}
-      {/*</For>*/}
-      {/*<Suspense fallback={<div>Loading...</div>}>*/}
-      {/*    <Switch>*/}
-      {/*        <Match when={contentBlocks.error}>*/}
-      {/*            <span>Error: {contentBlocks.error()?.message}</span>*/}
-      {/*        </Match>*/}
-      {/*        <Match when={contentBlocks()}>*/}
-      {/*            <For each={contentBlocks()}>*/}
-      {/*                {task => getElementForBlock(task)}*/}
-      {/*            </For>*/}
-      {/*        </Match>*/}
-      {/*    </Switch>*/}
-      {/*</Suspense>*/}
-    </div>
-  );
+    return (
+        <div>
+            {data.data.map((block) => getElementForBlock(block))}
+            {/*<For each={contentBlocks()}>*/}
+            {/*    {task => getElementForBlock(task)}*/}
+            {/*</For>*/}
+            {/*<Suspense fallback={<div>Loading...</div>}>*/}
+            {/*    <Switch>*/}
+            {/*        <Match when={contentBlocks.error}>*/}
+            {/*            <span>Error: {contentBlocks.error()?.message}</span>*/}
+            {/*        </Match>*/}
+            {/*        <Match when={contentBlocks()}>*/}
+            {/*            <For each={contentBlocks()}>*/}
+            {/*                {task => getElementForBlock(task)}*/}
+            {/*            </For>*/}
+            {/*        </Match>*/}
+            {/*    </Switch>*/}
+            {/*</Suspense>*/}
+        </div>
+    );
 }
 
 function getElementForBlock(content: (typeof data)['data'][number]) {
-  console.log('Content:', content);
-  switch (content.type) {
-    case 'paragraph':
-      return <Paragraph content={content.content!} />;
-    case 'adv':
-      return <Advert id={content.id!} />;
-    case 'image':
-      return <Image src={content.src!} />;
-    case 'embed':
-      return <Embed url={content.url!} />;
-  }
+    console.log('Content:', content);
+    switch (content.type) {
+        case 'title':
+            return <Title content={content.content!}/>;
+        case 'paragraph':
+            return <Paragraph content={content.content!}/>;
+        case 'adv':
+            return <Advert id={content.id!}/>;
+        case 'image':
+            return <Image src={content.src!}/>;
+        case 'embed':
+            return <Embed url={content.url!}/>;
+        case 'video':
+            return <Video id={content.id!}/>;
+    }
 }
 
 
