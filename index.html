@@ -24,23 +24,5 @@
     <script src="/src/index.tsx" type="module"></script>
 
     <script src="https://cdn.amomama.de/hackathon/scripts/adv.min.js"></script>
-    <script>
-      window.pbjs.que.push(function () {
-        window.pbjs.requestBids({
-          timeout: 1000,
-          adUnitCodes: ['in_article_1'],
-          bidsBackHandler: function () {
-            window.pbjs.setTargetingForGPTAsync(['in_article_1']);
-
-            const target = googletag
-              .pubads()
-              .getSlots()
-              .find((slot) => slot.getSlotElementId() === 'in_article_1');
-
-            target && googletag.pubads().refresh([target]);
-          }
-        });
-      });
-    </script>
   </body>
 </html>
