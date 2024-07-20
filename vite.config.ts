@@ -1,14 +1,10 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import path from 'path';
-import { partytownVite } from '@builder.io/partytown/utils';
 
 export default defineConfig({
   plugins: [
-    solidPlugin(),
-    partytownVite({
-      dest: path.join(__dirname, 'dist', '~partytown')
-    })
+    solidPlugin()
   ],
   server: {
     port: 3000

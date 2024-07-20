@@ -27,7 +27,6 @@
     "vite-plugin-solid": "^2.10.2"
   },
   "dependencies": {
-    "@builder.io/partytown": "^0.10.2",
     "@kobalte/core": "^0.13.3",
     "@tanstack/solid-virtual": "^3.8.3",
     "class-variance-authority": "^0.7.0",
