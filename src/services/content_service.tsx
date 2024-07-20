@@ -1,71 +1,53 @@
 ﻿import { createResource, For, Match, Suspense, Switch } from 'solid-js';
-import { data } from '../../article';
 import { Paragraph } from '~/components/paragraph';
 import { Advert } from '~/components/adv';
 import { Image } from '~/components/image';
 import { Embed } from '~/components/embed';
-import { Header } from '@kobalte/core/accordion';
 import { Title } from '~/components/title';
 import { Video } from '~/components/video';
 import { LoadAdsScript } from './LoadAdsScript';
 
-// enum ContentType{
-//     PARAGRAPH = 'paragraph',
-//     ADV = 'adv',
-//     IMAGE = 'image',
-//     EMBED = 'embed'
-// }
-//
-// export interface ContentBlock {
-//     type: ContentType;
-//     value: string;
-// }
+interface ContentBlock {
+  type: "title" | "paragraph" | "adv" | "image" | "embed" | "video";
+  content?: string;
+  id?: string;
+  src?: string;
+  url?: string;
+}
 
-// async function fetchContentBlocks(): Promise<ContentBlock[]>{
-//     const response = await fetch('https://cdn.amomama.de/hackathon/article.json');
-//     const data = await response.json();
-//     console.log('Fetched data:', data);
-//     return data;
-// }
-
-// function fetchContentBlocksFromFile(): ContentBlock[]{
-//     const data = contentBlocksData.data;
-//     // console.log('Fetched data:', data);
-//     return data;
-// }
+async function fetchContentBlocks(): Promise<ContentBlock[]>{
+    const response = await fetch('https://cdn.amomama.de/hackathon/article.json');
+    const data = await response.json();
+    console.log('Fetched data:', data);
+    return data.data;
+}
 
 export function ContentBlocks() {
-  // const [contentBlocks] = createResource(fetchContentBlocksFromFile);
-  // console.log('Content blocks:', contentBlocks());
+  const [contentBlocks] = createResource(fetchContentBlocks);
+  console.log('Content blocks:', contentBlocks());
 
+  LoadAdsScript();
   return (
     <>
-      <LoadAdsScript />
-
       <div class="max-w-[90%] md:max-w-[75%] lg:max-w-[60%] mt-24 mx-auto flex flex-col space-y-6 my-10">
-        {data.data.map((block) => getElementForBlock(block))}
-        {/*<For each={contentBlocks()}>*/}
-        {/*    {task => getElementForBlock(task)}*/}
-        {/*</For>*/}
-        {/*<Suspense fallback={<div>Loading...</div>}>*/}
-        {/*    <Switch>*/}
-        {/*        <Match when={contentBlocks.error}>*/}
-        {/*            <span>Error: {contentBlocks.error()?.message}</span>*/}
-        {/*        </Match>*/}
-        {/*        <Match when={contentBlocks()}>*/}
-        {/*            <For each={contentBlocks()}>*/}
-        {/*                {task => getElementForBlock(task)}*/}
-        {/*            </For>*/}
-        {/*        </Match>*/}
-        {/*    </Switch>*/}
-        {/*</Suspense>*/}
+        <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+                <Match when={contentBlocks.error}>
+                    <span>Error: {contentBlocks.error()?.message}</span>
+                </Match>
+                <Match when={contentBlocks()}>
+                    <For each={contentBlocks()}>
+                        {block => getElementForBlock(block)}
+                    </For>
+                </Match>
+            </Switch>
+        </Suspense>
       </div>
     </>
   );
 }
 
-function getElementForBlock(content: (typeof data)['data'][number]) {
-  // console.log('Content:', content);
+function getElementForBlock(content: ContentBlock) {
   switch (content.type) {
     case 'title':
       return <Title content={content.content!} />;
