@@ -1,8 +1,9 @@
-﻿import { onMount } from "solid-js";
+﻿import { onMount } from 'solid-js';
 
 export function Advert(props: { id: string }) {
-    onMount(() => {
-        console.log('loading ad', props.id)
+    onMount(async () => {
+        await new Promise((r) => setTimeout(r, 1000));
+        console.log('loading ad', props.id);
 
         window.pbjs.que.push(function () {
             window.pbjs.requestBids({
