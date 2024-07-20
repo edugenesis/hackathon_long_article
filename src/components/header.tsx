@@ -46,8 +46,10 @@ export function Header() {
     onCleanup(() => {
         window.removeEventListener('scroll', checkScroll);
     });
-    
-    return <nav class={`fixed inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-gray-950/90 ${isScrolled() ? 'hidden' : ''}`}>
+
+    return <nav class={`fixed inset-x-0 top-0 z-50 bg-white shadow-sm 
+            border-b border-gray-200 dark:border-gray-700 dark:bg-gray-950/90 
+            transition-all duration-400 ease-in-out transform ${isScrolled() ? 'translate-y-0 opacity-0' : 'translate-y-100 opacity-100'}`}>
         <div class="w-full max-w-7xl mx-auto px-4">
             <div class="flex justify-between h-14 items-center">
                 <Socials />
