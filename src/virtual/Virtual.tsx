@@ -1,12 +1,6 @@
-import {
-  createVirtualizer,
-  VirtualizerOptions,
-  Virtualizer,
-  PartialKeys,
-  createWindowVirtualizer,
-} from "@tanstack/solid-virtual";
-import { generateBoxes } from "./gen";
-import { createMemo, createSignal, For, onCleanup } from "solid-js";
+import { createWindowVirtualizer } from '@tanstack/solid-virtual';
+import { generateBoxes } from './gen';
+import { For } from 'solid-js';
 
 export function Virtual() {
   const boxes = generateBoxes(1000);
@@ -15,19 +9,32 @@ export function Virtual() {
   const virt = createWindowVirtualizer({
     count: boxes.length,
     estimateSize: (i) => boxes[i].height,
-    // Specify other configuration options here if needed
+    overscan: 0
   });
 
   return (
-    <div>
+    <div style={{ height: `${virt.getTotalSize()}px`, position: 'relative' }}>
       <For each={virt.getVirtualItems()}>
-        {(virtualRow, index) => {
-          const box = boxes[virtualRow.index];
-          const virtualRowStart = Number(virtualRow.start); // Cast to number
-          const virtualRowSize = Number(virtualRow.size); // Cast to number
-          const translateY =
-            virtualRowStart - Number(index as unknown) * virtualRowSize;
-          return <div style={`background-color: ${box.color}; height: ${box.height}px;`}>{box.n}</div>;
+        {(row, index) => {
+          const box = boxes[row.index];
+          const virtualRowStart = row.start;
+          const virtualRowSize = row.size;
+
+          // const translateY = virtualRowStart - index() * virtualRowSize;
+          const translateY = virtualRowStart;
+
+          return (
+            <div
+              style={{
+                height: `${row.size}px`,
+                background: box.color,
+                transform: `translateY(${translateY}px)`,
+                position: 'absolute',
+                width: '100%'
+              }}>
+              n={box.n} size={virtualRowSize} index={index()} translateY={translateY}
+            </div>
+          );
         }}
       </For>
     </div>
