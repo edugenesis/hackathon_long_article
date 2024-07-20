@@ -17,5 +17,5 @@ export function Embed(props: { url: string }) {
         console.log('embedo load', load);
     });
 
-    return <div ref={div}> Embedding {props.url}</div>;
+    return <div ref={div}/>;
 }
