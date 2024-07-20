@@ -4,6 +4,11 @@ const div_1_sizes = [
   [320, 50]
 ];
 
+export function destroyAdUnit(name: string) {
+  const pbjs = window.pbjs || {};
+  pbjs.removeAdUnit(name);
+}
+
 export function runAdUnit(name: string) {
   const adUnitObj = getAdUnitObj(name);
   console.log('running ad unit', name);
@@ -58,6 +63,12 @@ export function requestBids(name: string) {
   });
 }
 
+let pbjsInited = false;
+
+export function isPbJSInited() {
+  return pbjsInited && 'pbjs' in window && window.pbjs?.setConfig;
+}
+
 export async function initPbJS() {
   while (!('pbjs' in window) || !window.pbjs?.setConfig) {
     console.log('pbjs not available, waiting');
@@ -65,6 +76,7 @@ export async function initPbJS() {
   }
   console.log('pbjs setting config');
 
+  pbjsInited = true;
   window.pbjs.setConfig({
     bidderTimeout: 3000,
     enableSendAllBids: true,
