@@ -6,8 +6,48 @@
     <meta name="theme-color" content="#000000" />
     <link rel="shortcut icon" type="image/ico" href="/src/assets/favicon.ico" />
     <title>Solid App</title>
+
+    <script is="quantcast" src="https://cdn.amomama.de/hackathon/scripts/quantcast.min.js"></script>
+    <script
+      async
+      data-cfasync="false"
+      crossorigin="anonymous"
+      src="https://static.kueezrtb.com/latest.js"
+      id="kueezrtb_latest"></script>
+    <script async src="//www.googletagservices.com/tag/js/gpt.js"></script>
+
+    <script async src="https://cdn.amoanimals.com/prebiders/65df2430c6119531530487.js"></script>
   </head>
   <body>
+    <script src="https://cdn.amomama.de/hackathon/scripts/adv.min.js"></script>
+
+    <script>
+      // set player
+      const vidazoo = document.createElement('script');
+      vidazoo.async = true;
+      vidazoo.src = 'https://static.vidazoo.com/basev/vwpt.js';
+      vidazoo.setAttribute('data-widget-id', '5f7c82bd819a8b00049dd9d6');
+      document.getElementById('vidazoo').appendChild(vidazoo);
+
+      // set first banner (with id in_article_1)
+      window.pbjs.que.push(function () {
+        window.pbjs.requestBids({
+          timeout: 1000,
+          adUnitCodes: ['in_article_1'],
+          bidsBackHandler: function () {
+            window.pbjs.setTargetingForGPTAsync(['in_article_1']);
+
+            const target = googletag
+              .pubads()
+              .getSlots()
+              .find((slot) => slot.getSlotElementId() === 'in_article_1');
+
+            target && googletag.pubads().refresh([target]);
+          }
+        });
+      });
+    </script>
+
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
