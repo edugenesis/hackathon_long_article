@@ -58,50 +58,49 @@ export function requestBids(name: string) {
   });
 }
 
-export function initPbJS() {
-  console.log('initing pbjs');
-  if (window.pbjs.setConfig) {
-    console.log('pbjs setting config');
-
-    window.pbjs.setConfig({
-      bidderTimeout: 3000,
-      enableSendAllBids: true,
-      deviceAccess: true,
-      timeoutBuffer: 400,
-      priceGranularity: 'high',
-      bidderSequence: 'random',
-      userSync: {
-        syncEnabled: true,
-        filterSettings: {
-          iframe: {
-            bidders: '*',
-            filter: 'include'
-          },
-          image: {
-            bidders: '*',
-            filter: 'include'
-          }
-        },
-        syncsPerBidder: 5,
-        syncDelay: 5000,
-        auctionDelay: 250,
-        aliasSyncEnabled: true
-      },
-      consentManagement: {
-        usp: {
-          timeout: 100,
-          cmpApi: 'iab'
-        },
-        gdpr: {
-          cmpApi: 'iab',
-          timeout: 8000,
-          defaultGdprScope: true
-        }
-      }
-    });
-  } else {
-    console.log('no pbjs available');
+export async function initPbJS() {
+  while (!('pbjs' in window) || !window.pbjs?.setConfig) {
+    console.log('pbjs not available, waiting');
+    await new Promise((r) => setTimeout(r, 2000));
   }
+  console.log('pbjs setting config');
+
+  window.pbjs.setConfig({
+    bidderTimeout: 3000,
+    enableSendAllBids: true,
+    deviceAccess: true,
+    timeoutBuffer: 400,
+    priceGranularity: 'high',
+    bidderSequence: 'random',
+    userSync: {
+      syncEnabled: true,
+      filterSettings: {
+        iframe: {
+          bidders: '*',
+          filter: 'include'
+        },
+        image: {
+          bidders: '*',
+          filter: 'include'
+        }
+      },
+      syncsPerBidder: 5,
+      syncDelay: 5000,
+      auctionDelay: 250,
+      aliasSyncEnabled: true
+    },
+    consentManagement: {
+      usp: {
+        timeout: 100,
+        cmpApi: 'iab'
+      },
+      gdpr: {
+        cmpApi: 'iab',
+        timeout: 8000,
+        defaultGdprScope: true
+      }
+    }
+  });
 }
 
 function getAdUnitObj(name: string) {
