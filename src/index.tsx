@@ -1,6 +1,6 @@
 /* @refresh reload */
 import { render } from 'solid-js/web';
-
+import { ColorModeProvider, createLocalStorageManager, ColorModeScript } from '@kobalte/core';
 import './index.css';
 import App from './App';
 
@@ -12,4 +12,17 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
-render(() => <App />, root!);
+export const storageManager = createLocalStorageManager('vite-ui-theme');
+storageManager.set('system');
+
+render(
+  () => (
+    <>
+      <ColorModeScript storageType={storageManager.type} />
+      <ColorModeProvider storageManager={storageManager}>
+        <App />
+      </ColorModeProvider>
+    </>
+  ),
+  root!
+);

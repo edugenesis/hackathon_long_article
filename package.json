@@ -32,6 +32,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embedo": "^1.14.0",
+    "lucide-solid": "^0.411.0",
     "prettier": "^3.3.3",
     "solid-js": "^1.8.18",
     "tailwind-merge": "^2.4.0",

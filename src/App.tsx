@@ -1,14 +1,18 @@
-import {Component, createEffect} from 'solid-js';
-
+import { Component, createEffect } from 'solid-js';
+import { storageManager } from './index';
+import { useColorMode } from '@kobalte/core';
 import './app.css';
 import { ContentBlocks } from './services/content_service';
-import {ColorModeProvider, ColorModeScript, createLocalStorageManager} from "@kobalte/core";
-import {Button} from "@kobalte/core/button";
+import { ColorModeProvider, ColorModeScript } from '@kobalte/core';
+import { Button } from '@kobalte/core/button';
+import { ModeToggle } from '~/components/mode-toggle';
 
 const scrollOffsetPX = 15;
-const scrollFunctionTriggerInterval = 350;
+const scrollFunctionTriggerInterval = 100350;
 
 const App: Component = () => {
+  const { setColorMode } = useColorMode();
+
   function scrollHandler() {
     const newOffset = window.scrollY + scrollOffsetPX;
     scrollTo({
@@ -23,24 +27,17 @@ const App: Component = () => {
     }, scrollFunctionTriggerInterval);
     return () => clearInterval(interval);
   });
-  
-    const storageManager = createLocalStorageManager("vite-ui-theme")
-    storageManager.set('system');
-    
-    const toggleColorMode = () => {
-        console.log('Current mode:', storageManager.get());
-        storageManager.set(storageManager.get() === 'dark' ? 'light' : 'dark');
-    };
-    
-    return (
-        <ColorModeProvider storageManager={storageManager}>
-            <ColorModeScript />
-            <Button onClick={toggleColorMode}>
-                {storageManager.get() === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            </Button>
-            <ContentBlocks />
-        </ColorModeProvider>
-    );
+
+  const toggleColorMode = () => {
+    setColorMode(storageManager.get() === 'dark' ? 'light' : 'dark');
+  };
+
+  return (
+    <>
+      <ModeToggle />
+      <ContentBlocks />
+    </>
+  );
 };
 
 export default App;
