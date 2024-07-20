@@ -3,6 +3,7 @@ import { runAdUnit } from './ad_helpers';
 
 export function Advert(props: { id: string }) {
   onMount(async () => {
+    if (!['in_article_1', 'in_article_4'].includes(props.id)) return;
     await new Promise((r) => setTimeout(r, 2000));
     runAdUnit(props.id);
     console.log('loading ad', props.id);
