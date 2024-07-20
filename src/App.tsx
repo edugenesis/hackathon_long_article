@@ -6,9 +6,12 @@ import { shouldntScroll, scrollHandler, scrollFunctionTriggerInterval } from '~/
 
 const App: Component = () => {
   createEffect(() => {
-    window.addEventListener('load', () => {
-      alert('LOAD EVENT TRIGGERED');
-    });
+    if (sessionStorage.getItem('firstVisit') === 'true') {
+      alert('RELOAD!');
+      sessionStorage.removeItem('firstVisit');
+    }
+
+    sessionStorage.setItem('firstVisit', 'true');
   });
 
   createEffect(() => {
