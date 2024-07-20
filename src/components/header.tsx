@@ -55,7 +55,7 @@ export function Header() {
         <div class="w-full max-w-7xl mx-auto px-4">
             <div class="flex justify-between h-14 items-center">
                 <Socials />
-                <div class="flex space-x-20">
+                <div class="flex space-x-12">
                     <OptionsDropdown />
                     <ModeToggle />
                 </div>
