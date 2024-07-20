@@ -8,7 +8,7 @@ const embedo = new Embedo({
 
 import { createSignal, onCleanup, onMount, createEffect } from 'solid-js';
 
-export function Embed(props: { url: string }) {
+export function Embed(props: { url: string, optimize: boolean}) {
   let wrapper: HTMLDivElement | undefined;
 
   const [inited, setInited] = createSignal(false);
@@ -31,8 +31,8 @@ export function Embed(props: { url: string }) {
   onMount(async () => {
     if (!wrapper) return;
 
-    if (window.location.href.includes('?regular')) {
-      console.log('regular adv view');
+    if (window.location.href.includes('?regular') || !props.optimize) {
+      console.log('regular embed view');
       initEmbed();
 
       return;
