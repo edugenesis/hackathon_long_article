@@ -35,7 +35,7 @@ export function Advert(props: { id: string }) {
   onMount(async () => {
     if (!div) return;
 
-    const viewportHeight = window.innerHeight;
+    const viewportHeight = window.innerHeight*2;
 
     observer = new IntersectionObserver(
       (el) => {
