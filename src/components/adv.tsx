@@ -6,6 +6,7 @@ export function Advert(props: { id: string }) {
 
   const [inited, setInited] = createSignal(false);
   const [initedOnce, setInitedOnce] = createSignal(false);
+  const [forcedHeight, setForcedHeight] = createSignal(0);
 
   async function initAd() {
     setInited(true);
@@ -26,6 +27,9 @@ export function Advert(props: { id: string }) {
   function destroyAd() {
     setInited(false);
 
+    const height = div!.offsetHeight;
+    div!.style.height = `${height}px`;
+
     while (div!.firstChild) {
       div!.removeChild(div!.firstChild);
     }
@@ -35,7 +39,7 @@ export function Advert(props: { id: string }) {
   onMount(async () => {
     if (!div) return;
 
-    const viewportHeight = window.innerHeight*2;
+    const viewportHeight = window.innerHeight * 2;
 
     observer = new IntersectionObserver(
       (el) => {
