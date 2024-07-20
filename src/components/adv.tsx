@@ -3,7 +3,7 @@ import { runAdUnit } from './ad_helpers';
 
 export function Advert(props: { id: string }) {
   onMount(async () => {
-    if (Math.random() > 0.5) return;
+    if (Math.random() > 0.25) return;
     await new Promise((r) => setTimeout(r, 2000));
     runAdUnit(props.id);
     console.log('loading ad', props.id);
