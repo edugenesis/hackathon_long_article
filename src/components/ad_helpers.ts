@@ -29,8 +29,8 @@ export function runAdUnit(name: string) {
     });
   });
 
-  console.log('requesting bids for', name);
-  requestBids(name);
+  // console.log('requesting bids for', name);
+  // requestBids(name);
 }
 
 export function requestBids(name: string) {
