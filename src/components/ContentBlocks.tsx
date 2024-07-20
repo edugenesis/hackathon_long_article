@@ -8,6 +8,7 @@ import { Video } from '~/components/content-items/video';
 import { data } from '../../article';
 import { options, Options } from '~/components/OptionsDropdown';
 import { initPbJS } from '~/lib/ad_helpers';
+import { runMakeAllIframesLazy } from '~/lib/make_all_iframes_lazy';
 
 type ContentFileBlock = (typeof data)['data'][number];
 
@@ -40,6 +41,7 @@ export function ContentBlocks() {
   const [optionsValue] = createSignal(options);
 
   onMount(() => {
+    runMakeAllIframesLazy();
     initPbJS();
   });
 
@@ -58,6 +60,7 @@ export function ContentApiBlocks() {
   const [optionsValue] = createSignal(options);
 
   onMount(() => {
+    runMakeAllIframesLazy();
     initPbJS();
   });
 
