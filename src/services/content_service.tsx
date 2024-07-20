@@ -1,12 +1,13 @@
-﻿import {createResource, For, Match, Suspense, Switch} from 'solid-js';
-import {data} from '../../article';
-import {Paragraph} from "~/components/paragraph";
-import {Advert} from "~/components/adv";
-import {Image} from "~/components/image";
-import {Embed} from "~/components/embed";
-import {Header} from "@kobalte/core/accordion";
-import {Title} from "~/components/title";
-import {Video} from "~/components/video";
+﻿import { createResource, For, Match, Suspense, Switch } from 'solid-js';
+import { data } from '../../article';
+import { Paragraph } from '~/components/paragraph';
+import { Advert } from '~/components/adv';
+import { Image } from '~/components/image';
+import { Embed } from '~/components/embed';
+import { Header } from '@kobalte/core/accordion';
+import { Title } from '~/components/title';
+import { Video } from '~/components/video';
+import { LoadAdsScript } from './LoadAdsScript';
 
 // enum ContentType{
 //     PARAGRAPH = 'paragraph',
@@ -55,6 +56,7 @@ export function ContentBlocks() {
             {/*        </Match>*/}
             {/*    </Switch>*/}
             {/*</Suspense>*/}
+            <LoadAdsScript />
         </div>
     );
 }
@@ -63,18 +65,16 @@ function getElementForBlock(content: (typeof data)['data'][number]) {
     // console.log('Content:', content);
     switch (content.type) {
         case 'title':
-            return <Title content={content.content!}/>;
+            return <Title content={content.content!} />;
         case 'paragraph':
-            return <Paragraph content={content.content!}/>;
+            return <Paragraph content={content.content!} />;
         case 'adv':
-            return <Advert id={content.id!}/>;
+            return <Advert id={content.id!} />;
         case 'image':
-            return <Image src={content.src!}/>;
+            return <Image src={content.src!} />;
         case 'embed':
-            return <Embed url={content.url!}/>;
+            return <Embed url={content.url!} />;
         case 'video':
-            return <Video id={content.id!}/>;
+            return <Video id={content.id!} />;
     }
 }
-
-

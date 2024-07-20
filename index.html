@@ -23,6 +23,71 @@
     <div id="root"></div>
     <script src="/src/index.tsx" type="module"></script>
 
-    <script src="https://cdn.amomama.de/hackathon/scripts/adv.min.js"></script>
+    <!-- <script> -->
+    <!--   async () => { -->
+    <!--     await new Promise((r) => setTimeout(r, 500)); -->
+    <!--     console.log('loading all ads intersection observers...'); -->
+    <!--     lazy(); -->
+    <!--   }; -->
+    <!---->
+    <!--   function lazy() { -->
+    <!--     var slotsAmount = document.querySelectorAll('[data-slot-type="1"]').length; -->
+    <!---->
+    <!--     const observer = new IntersectionObserver((entries) => { -->
+    <!--       entries.forEach((entry) => { -->
+    <!--         if (entry.isIntersecting) { -->
+    <!--           var element = entry.target; -->
+    <!---->
+    <!--           if (element.id === 'vidazoo') { -->
+    <!--             const vidazoo = document.createElement('script'); -->
+    <!--             vidazoo.async = true; -->
+    <!--             vidazoo.src = 'https://static.vidazoo.com/basev/vwpt.js'; -->
+    <!--             vidazoo.setAttribute('data-widget-id', '5f7c82bd819a8b00049dd9d6'); -->
+    <!--             document.getElementById('vidazoo').appendChild(vidazoo); -->
+    <!--           } else { -->
+    <!--             window.pbjs.que.push(function () { -->
+    <!--               window.pbjs.requestBids({ -->
+    <!--                 timeout: 1000, -->
+    <!--                 adUnitCodes: [element.id], -->
+    <!--                 bidsBackHandler: function () { -->
+    <!--                   window.pbjs.setTargetingForGPTAsync([element.id]); -->
+    <!---->
+    <!--                   const target = googletag -->
+    <!--                     .pubads() -->
+    <!--                     .getSlots() -->
+    <!--                     .find((slot) => slot.getSlotElementId() === element.id); -->
+    <!---->
+    <!--                   target && googletag.pubads().refresh([target]); -->
+    <!--                 } -->
+    <!--               }); -->
+    <!--             }); -->
+    <!--           } -->
+    <!---->
+    <!--           observer.unobserve(element); -->
+    <!--         } -->
+    <!--       }); -->
+    <!--     }); -->
+    <!---->
+    <!--     observer.observe(document.querySelector('#vidazoo')); -->
+    <!---->
+    <!--     for (var i = 1, j = 1, k = 0, flag = false; i <= slotsAmount; i++) { -->
+    <!--       var name = 'in_article_'; -->
+    <!---->
+    <!--       if (j > 4 || flag) { -->
+    <!--         flag = true; -->
+    <!--         if (j > 4) j = 1; -->
+    <!--         name += j; -->
+    <!--         name += `-${k}`; -->
+    <!--         k++; -->
+    <!--       } else { -->
+    <!--         name += j; -->
+    <!--       } -->
+    <!---->
+    <!--       observer.observe(document.getElementById(name)); -->
+    <!---->
+    <!--       j++; -->
+    <!--     } -->
+    <!--   } -->
+    <!-- </script> -->
   </body>
 </html>
