@@ -19,17 +19,12 @@
     <script async src="https://cdn.amoanimals.com/prebiders/65df2430c6119531530487.js"></script>
   </head>
   <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script src="/src/index.tsx" type="module"></script>
+
     <script src="https://cdn.amomama.de/hackathon/scripts/adv.min.js"></script>
-
     <script>
-      // set player
-      const vidazoo = document.createElement('script');
-      vidazoo.async = true;
-      vidazoo.src = 'https://static.vidazoo.com/basev/vwpt.js';
-      vidazoo.setAttribute('data-widget-id', '5f7c82bd819a8b00049dd9d6');
-      document.getElementById('vidazoo').appendChild(vidazoo);
-
-      // set first banner (with id in_article_1)
       window.pbjs.que.push(function () {
         window.pbjs.requestBids({
           timeout: 1000,
@@ -47,10 +42,5 @@
         });
       });
     </script>
-
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-
-    <script src="/src/index.tsx" type="module"></script>
   </body>
 </html>
