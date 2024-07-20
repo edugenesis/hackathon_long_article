@@ -14,7 +14,6 @@ export function Embed(props: { url: string }) {
         if (!div) throw Error('div not found');
 
         const load = embedo.load(div, props.url, {});
-        console.log('embedo load', load);
     });
 
     return <div ref={div}/>;

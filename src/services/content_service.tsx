@@ -60,7 +60,7 @@ export function ContentBlocks() {
 }
 
 function getElementForBlock(content: (typeof data)['data'][number]) {
-    console.log('Content:', content);
+    // console.log('Content:', content);
     switch (content.type) {
         case 'title':
             return <Title content={content.content!}/>;
