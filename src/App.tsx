@@ -5,8 +5,8 @@ import './app.css';
 import { ContentBlocks } from './services/content_service';
 import { ModeToggle } from '~/components/mode-toggle';
 
-const scrollOffsetPX = 15;
-const scrollFunctionTriggerInterval = 350;
+const scrollOffsetPX = 3;
+const scrollFunctionTriggerInterval = 70;
 
 const App: Component = () => {
   function scrollHandler() {
