@@ -31,10 +31,9 @@ export function Embed(props: { url: string, optimize: boolean}) {
   onMount(async () => {
     if (!wrapper) return;
 
-    if (window.location.href.includes('?regular') || !props.optimize) {
+    if (!props.optimize) {
       console.log('regular embed view');
       initEmbed();
-
       return;
     }
 

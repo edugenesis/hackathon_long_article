@@ -38,10 +38,9 @@ export function Advert(props: { id: string, optimize: boolean }) {
   onMount(async () => {
     if (!div) return;
 
-    if (window.location.href.includes('?regular') || !props.optimize) {
+    if (!props.optimize) {
       console.log('regular adv view');
       initAd();
-
       return;
     }
 
