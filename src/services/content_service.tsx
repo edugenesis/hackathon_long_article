@@ -42,7 +42,7 @@ export function ContentBlocks() {
     <>
       <LoadAdsScript />
 
-      <div class="max-w-[90%] md:max-w-[75%] lg:max-w-[60%] mx-auto flex flex-col space-y-6 my-10">
+      <div class="max-w-[90%] md:max-w-[75%] lg:max-w-[60%] mt-24 mx-auto flex flex-col space-y-6 my-10">
         {data.data.map((block) => getElementForBlock(block))}
         {/*<For each={contentBlocks()}>*/}
         {/*    {task => getElementForBlock(task)}*/}
