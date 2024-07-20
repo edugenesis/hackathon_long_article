@@ -1,8 +1,11 @@
-import { Component, createEffect } from 'solid-js';
+import { Component, createEffect, createMemo } from 'solid-js';
 import './app.css';
-import { ContentApiBlocks, ContentBlocks } from './components/ContentBlocks';
+import { ContentBlocks } from './components/ContentBlocks';
 import { Header } from '~/components/Header';
-import { shouldntScroll, scrollHandler, scrollFunctionTriggerInterval } from '~/lib/auto_scroll';
+
+export const scrollFunctionTriggerInterval = 70;
+
+import { ScrollSwitch } from '~/components/ScrollSwitch';
 
 const App: Component = () => {
   createEffect(() => {
@@ -10,23 +13,12 @@ const App: Component = () => {
       alert('RELOAD!');
       sessionStorage.removeItem('firstVisit');
     }
-
     sessionStorage.setItem('firstVisit', 'true');
-  });
-
-  createEffect(() => {
-    if (shouldntScroll()) return;
-
-    const scrollInterval = setInterval(() => {
-      requestAnimationFrame(() => {});
-      scrollHandler();
-    }, scrollFunctionTriggerInterval);
-
-    return () => clearInterval(scrollInterval);
   });
 
   return (
     <>
+      <ScrollSwitch />
       <Header />
       <ContentBlocks />
     </>
