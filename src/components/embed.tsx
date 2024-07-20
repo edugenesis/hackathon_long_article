@@ -7,7 +7,7 @@ const embedo = new Embedo({
     pinterest: true
 });
 
-export function Embed(props: { url: string }) {
+export function Embed(props: { url: string, optimize: boolean}) {
     let div: HTMLDivElement | undefined;
 
     onMount(async () => {

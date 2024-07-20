@@ -1,7 +1,7 @@
 ﻿import { createSignal, onCleanup, onMount } from 'solid-js';
 import { destroyAdUnit, isPbJSInited, requestBids, runAdUnit } from './ad_helpers';
 
-export function Advert(props: { id: string }) {
+export function Advert(props: { id: string, optimize: boolean }) {
   let div: HTMLDivElement | undefined;
 
   const [inited, setInited] = createSignal(false);
@@ -39,7 +39,7 @@ export function Advert(props: { id: string }) {
   onMount(async () => {
     if (!div) return;
 
-    if (window.location.href.includes('?regular')) {
+    if (window.location.href.includes('?regular') || !props.optimize) {
       console.log('regular adv view');
       initAd();
 

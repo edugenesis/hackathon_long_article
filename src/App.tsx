@@ -25,7 +25,7 @@ const App: Component = () => {
   return (
     <>
       <Header />
-      <ContentBlocks />
+      <ContentBlocks/>
     </>
   );
 };

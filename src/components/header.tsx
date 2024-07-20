@@ -1,6 +1,8 @@
 ﻿import {createSignal, onCleanup} from "solid-js";
 import {ModeToggle} from "~/components/mode-toggle";
 import {Link} from "@kobalte/core/link";
+import React from "react";
+import {OptionsDropdown} from "~/components/options-dropdown";
 
 
 export function Socials() {
@@ -53,7 +55,10 @@ export function Header() {
         <div class="w-full max-w-7xl mx-auto px-4">
             <div class="flex justify-between h-14 items-center">
                 <Socials />
-                <ModeToggle />
+                <div class="flex space-x-20">
+                    <OptionsDropdown />
+                    <ModeToggle />
+                </div>
             </div>
         </div>
     </nav>;
