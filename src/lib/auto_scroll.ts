@@ -1,9 +1,9 @@
 const scrollOffsetPX = 3;
 export const scrollFunctionTriggerInterval = 70;
 
-export function shouldAutoScroll() {
+export function shouldntScroll() {
   const searchParams = new URLSearchParams(window.location.href.split('?')[1]);
-  return searchParams.get(`withAutoscroll`) === 'true';
+  return searchParams.get(`noScroll`) === 'true';
 }
 
 export function scrollHandler() {

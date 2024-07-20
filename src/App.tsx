@@ -1,8 +1,8 @@
 import { Component, createEffect } from 'solid-js';
 import './app.css';
-import {ContentApiBlocks, ContentBlocks} from './components/ContentBlocks';
+import { ContentApiBlocks, ContentBlocks } from './components/ContentBlocks';
 import { Header } from '~/components/Header';
-import { shouldAutoScroll, scrollHandler, scrollFunctionTriggerInterval } from '~/lib/auto_scroll';
+import { shouldntScroll, scrollHandler, scrollFunctionTriggerInterval } from '~/lib/auto_scroll';
 
 const App: Component = () => {
   createEffect(() => {
@@ -12,7 +12,7 @@ const App: Component = () => {
   });
 
   createEffect(() => {
-    if (!shouldAutoScroll()) return;
+    if (shouldntScroll()) return;
 
     const scrollInterval = setInterval(() => {
       requestAnimationFrame(() => {});
@@ -25,7 +25,7 @@ const App: Component = () => {
   return (
     <>
       <Header />
-      <ContentBlocks/>
+      <ContentBlocks />
     </>
   );
 };
