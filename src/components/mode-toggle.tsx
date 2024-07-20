@@ -1,38 +1,53 @@
-import { useColorMode } from '@kobalte/core';
+import {Toggle} from "~/components/ui/toggle";
+import {Show} from "solid-js";
+import {storageManager} from "~/index";
+import {useColorMode} from "@kobalte/core";
 
-import { Laptop as IconLaptop, Moon as IconMoon, Sun as IconSun } from 'lucide-solid';
-import { Button } from '~/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '~/components/ui/dropdown-menu';
+
+function MoonIcon() {
+    return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-moon absolute size-6 transition-all dark:-translate-x-6">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+    </svg>
+}
+
+function SunIcon() {
+    return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-sun size-6 transition-all dark:-translate-x-6">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2"/>
+        <path d="M12 20v2"/>
+        <path d="m4.93 4.93 1.41 1.41"/>
+        <path d="m17.66 17.66 1.41 1.41"/>
+        <path d="M2 12h2"/>
+        <path d="M20 12h2"/>
+        <path d="m6.34 17.66-1.41 1.41"/>
+        <path d="m19.07 4.93-1.41 1.41"/>
+    </svg>
+}
+
+function getIcon() {
+    return storageManager.get() === 'dark' ? <SunIcon/> : <MoonIcon/>;
+}
+
+function getFallback() {
+    return storageManager.get() === 'dark' ? <SunIcon/> : <MoonIcon/>;
+}
 
 export function ModeToggle() {
-  const { setColorMode } = useColorMode();
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger as={Button<'button'>} variant="ghost" size="sm" class="w-9 px-0">
-        <IconSun class="size-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <IconMoon class="absolute size-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        <span class="sr-only">Toggle theme</span>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem onSelect={() => setColorMode('light')}>
-          <IconSun class="mr-2 size-4" />
-          <span>Light</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => setColorMode('dark')}>
-          <IconMoon class="mr-2 size-4" />
-          <span>Dark</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => setColorMode('system')}>
-          <IconLaptop class="mr-2 size-4" />
-          <span>System</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+    const {setColorMode} = useColorMode();
+    const toggleColorMode = () => {
+        console.log('Toggling color mode to:', storageManager.get());
+        setColorMode(storageManager.get() === 'dark' ? 'light' : 'dark');
+    };
+    
+    return <Toggle onChange={toggleColorMode}>
+        {(state) => (
+            <Show when={state.pressed()} fallback={getFallback()}>
+                {getIcon()}
+            </Show>
+        )}
+    </Toggle>;
 }
