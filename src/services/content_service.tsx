@@ -1,5 +1,9 @@
 ﻿import { createResource, For, Match, Suspense, Switch } from 'solid-js';
 import { data } from '../../article';
+import {Paragraph} from "~/components/paragraph";
+import {Advert} from "~/components/adv";
+import {Image} from "~/components/image";
+import {Embed} from "~/components/embed";
 
 // enum ContentType{
 //     PARAGRAPH = 'paragraph',
@@ -56,12 +60,14 @@ function getElementForBlock(content: (typeof data)['data'][number]) {
   console.log('Content:', content);
   switch (content.type) {
     case 'paragraph':
-      return <p>{content.content}</p>;
+      return <Paragraph content={content.content!} />;
     case 'adv':
-      return <div>{content.id}</div>;
+      return <Advert id={content.id!} />;
     case 'image':
-      return <img src={content.src} alt="" />;
+      return <Image src={content.src!} />;
     case 'embed':
-      return <iframe src={content.url} title="" />;
+      return <Embed url={content.url!} />;
   }
 }
+
+
