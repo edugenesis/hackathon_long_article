@@ -6,6 +6,12 @@ import { shouldAutoScroll, scrollHandler, scrollFunctionTriggerInterval } from '
 
 const App: Component = () => {
   createEffect(() => {
+    window.addEventListener('load', () => {
+      alert('LOAD EVENT TRIGGERED');
+    });
+  });
+
+  createEffect(() => {
     if (!shouldAutoScroll()) return;
 
     const scrollInterval = setInterval(() => {
