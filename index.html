@@ -7,6 +7,31 @@
     <link rel="shortcut icon" type="image/ico" href="/src/assets/favicon.ico" />
     <title>Solid App</title>
 
+    <script>
+      window.partytown = {
+        forward: [
+          'pbjs',
+          'pbjs.que.push',
+          'pbjs.setConfig',
+          'pbjs.removeAdUnit',
+          'pbjs.que',
+          'pbjs.que.push',
+          'pbjs.setTargetingForGPTAsync',
+          'pbjs.setTargetingForGPTAsync',
+          'googletag',
+          'googletag.cmd',
+          'googletag.defineSlot',
+          'googletag.addService',
+          'googletag.pubads',
+          'googletag.enableServices',
+          'googletag.cmd.push',
+          'googletag.display',
+        ],
+        debug: true
+      };
+    </script>
+
+    <script src="/~partytown/debug/partytown.js"></script>
     <script is="quantcast" src="https://cdn.amomama.de/hackathon/scripts/quantcast.min.js"></script>
     <script
       async
@@ -14,9 +39,10 @@
       crossorigin="anonymous"
       src="https://static.kueezrtb.com/latest.js"
       id="kueezrtb_latest"></script>
-    <script async src="//www.googletagservices.com/tag/js/gpt.js"></script>
+    <script async src="/gpt.js" type="text/partytown"></script>
 
-    <script async src="https://cdn.amoanimals.com/prebiders/65df2430c6119531530487.js"></script>
+    <!-- <script async src="https://cdn.amoanimals.com/prebiders/65df2430c6119531530487.js" type="text/partytown"></script> -->
+    <script async src="/prebid.js" type="text/partytown"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
