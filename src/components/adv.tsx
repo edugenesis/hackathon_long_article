@@ -39,6 +39,13 @@ export function Advert(props: { id: string }) {
   onMount(async () => {
     if (!div) return;
 
+    if (window.location.href.includes('?regular')) {
+      console.log('regular adv view');
+      initAd();
+
+      return;
+    }
+
     const viewportHeight = window.innerHeight * 2;
 
     observer = new IntersectionObserver(
