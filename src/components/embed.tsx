@@ -1,6 +1,4 @@
 ﻿import Embedo from 'embedo';
-import { onMount } from 'solid-js';
-import url from 'node:url';
 
 const embedo = new Embedo({
   twitter: true,
@@ -8,19 +6,68 @@ const embedo = new Embedo({
   pinterest: true
 });
 
-export function Embed(props: { url: string, optimize: boolean }) {
-  // let div: HTMLDivElement | undefined;
-  //
-  // onMount(async () => {
-  //   if (!div) throw Error('embed div not found');
-  //
-  //   embedo.load(div, props.url);
-  //
-  //   const iframe = div.getElementsByTagName('iframe')[0];
-  //
-  //   iframe.attributes.setNamedItem('loading=lazy');
-  // });
+import { createSignal, onCleanup, onMount, createEffect } from 'solid-js';
 
-  return <iframe src={`https://twitframe.com/show?url=${props.url}`} height={700} loading="lazy" />;
+export function Embed(props: { url: string }) {
+  let wrapper: HTMLDivElement | undefined;
+
+  const [inited, setInited] = createSignal(false);
+
+  async function initEmbed() {
+    setInited(true);
+    if (!wrapper) throw Error('embed div not found');
+
+    embedo.load(wrapper, props.url, {});
+  }
+
+  function destroyEmbed() {
+    setInited(false);
+
+    const height = wrapper!.offsetHeight;
+    wrapper!.style.height = `${height}px`;
+  }
+
+  let observer: IntersectionObserver;
+  onMount(async () => {
+    if (!wrapper) return;
+
+    if (window.location.href.includes('?regular')) {
+      console.log('regular adv view');
+      initEmbed();
+
+      return;
+    }
+
+    const viewportHeight = window.innerHeight;
+
+    observer = new IntersectionObserver(
+      (el) => {
+        const isIntersecting = el[0].isIntersecting;
+
+        console.log('intersercting', isIntersecting);
+        if (isIntersecting && !inited()) {
+          initEmbed();
+        }
+        if (!isIntersecting && inited()) {
+          destroyEmbed();
+        }
+      },
+      {
+        rootMargin: `${viewportHeight}px 0px ${viewportHeight}px 0px`,
+        threshold: 0.01
+      }
+    );
+    observer.observe(wrapper);
+  });
+
+  onCleanup(() => {
+    if (!wrapper || !observer) return;
+    observer.unobserve(wrapper);
+  });
+
+  return (
+    <>
+      <div ref={wrapper}></div>
+    </>
+  );
 }
-// return <iframe height={700} width={400} loading="lazy" src={`https://twitframe.com/show?url=${url}`} />;
