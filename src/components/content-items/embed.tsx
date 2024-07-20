@@ -37,7 +37,7 @@ export function Embed(props: { url: string, optimize: boolean}) {
       return;
     }
 
-    const viewportHeight = window.innerHeight;
+    const viewportHeight = window.innerHeight * 0.5;
 
     observer = new IntersectionObserver(
       (el) => {
