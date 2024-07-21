@@ -1,14 +1,14 @@
-﻿import { createResource, createSignal, For, Match, onMount, Suspense, Switch } from 'solid-js';
+﻿import { createResource, createSignal, For, Match, onMount, Suspense, Switch, createEffect } from 'solid-js';
 import { Paragraph } from '~/components/content-items/paragraph';
 import { Advert } from '~/components/content-items/adv';
-import {isBannerSet, Image} from '~/components/content-items/image';
+import { isBannerSet, Image } from '~/components/content-items/image';
 import { Embed } from '~/components/content-items/embed';
 import { Title } from '~/components/content-items/title';
 import { Video } from '~/components/content-items/video';
 import { data } from '../../article';
 import { options, Options } from '~/components/OptionsDropdown';
 import { initPbJS } from '~/lib/ad_helpers';
-import { runMakeAllIframesLazy } from '~/lib/make_all_iframes_lazy';
+import { disableAllIframesLazy, disableMakeAllIframesLazy, runMakeAllIframesLazy } from '~/lib/make_all_iframes_lazy';
 
 type ContentFileBlock = (typeof data)['data'][number];
 
@@ -30,7 +30,7 @@ async function fetchContentBlocks(): Promise<ContentApiBlock[]> {
 function ContentBlocksLayout(props: { children: any }) {
   return (
     <div
-      class="max-w-[90%] md:max-w-[75%] lg:max-w-[60%] mt-24 mx-auto 
+      class="max-w-[90%] md:max-w-[75%] lg:max-w-[60%] mt-24 mx-auto
       flex flex-col space-y-6 my-10">
       {props.children}
     </div>
@@ -40,8 +40,9 @@ function ContentBlocksLayout(props: { children: any }) {
 export function ContentBlocks() {
   const [optionsValue] = createSignal(options);
 
-  onMount(() => {
-    runMakeAllIframesLazy();
+  createEffect(() => {
+    if (options().lazyLoad === 'enabled') runMakeAllIframesLazy();
+    else disableAllIframesLazy();
     initPbJS();
   });
 
@@ -59,8 +60,9 @@ export function ContentApiBlocks() {
   console.log('Content blocks:', contentBlocks());
   const [optionsValue] = createSignal(options);
 
-  onMount(() => {
-    runMakeAllIframesLazy();
+  createEffect(() => {
+    if (options().lazyLoad === 'enabled') runMakeAllIframesLazy();
+    else disableAllIframesLazy();
     initPbJS();
   });
 
@@ -99,7 +101,7 @@ function getElementForBlock(content: ContentFileBlock | ContentApiBlock, options
     case 'adv':
       return <Advert id={content.id!} optimize={options.ads === 'optimized'} />;
     case 'image':
-      return <Image src={content.src!} isBanner={!isBannerSet} optimize={true}/>;
+      return <Image src={content.src!} isBanner={!isBannerSet} optimize={true} lazy={options.lazyLoad === 'enabled'} />;
     case 'embed':
       return <Embed url={content.url!} optimize={options.embeds === 'optimized'} />;
     case 'video':
