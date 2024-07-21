@@ -1,16 +1,17 @@
 import { Switch, SwitchControl, SwitchLabel, SwitchThumb } from '~/components/ui/switch';
 import { scrollableStore, setScrollableStore } from '~/stores/scrollStore';
 import { createEffect } from 'solid-js';
-import { scrollFunctionTriggerInterval } from '~/App';
 
-const scrollOffsetPX = 3;
+const scrollOffsetPX = 15;
+const scrollFunctionTriggerInterval = 350;
 
 export function ScrollSwitch() {
   function scrollHandler() {
     if (!scrollableStore.enabled) return;
     const newOffset = window.scrollY + scrollOffsetPX;
     scrollTo({
-      top: newOffset
+      top: newOffset,
+      behavior: 'smooth'
     });
   }
 

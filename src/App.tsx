@@ -2,9 +2,6 @@ import { Component, createEffect, createMemo } from 'solid-js';
 import './app.css';
 import { ContentBlocks } from './components/ContentBlocks';
 import { Header } from '~/components/Header';
-
-export const scrollFunctionTriggerInterval = 70;
-
 import { ScrollSwitch } from '~/components/ScrollSwitch';
 
 const App: Component = () => {
