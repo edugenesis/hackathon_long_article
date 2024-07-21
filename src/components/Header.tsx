@@ -1,7 +1,6 @@
 ﻿import {createSignal, onCleanup} from "solid-js";
 import {ModeToggle} from "~/components/ModeToggle";
 import {Link} from "@kobalte/core/link";
-import React from "react";
 import {OptionsDropdown} from "~/components/OptionsDropdown";
 
 

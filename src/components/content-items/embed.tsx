@@ -1,72 +1,35 @@
 ﻿import Embedo from 'embedo';
+import { LazyOffloading } from '../LazyOffloading';
 
-const embedo = new Embedo({
-  twitter: true,
-  instagram: true,
-  pinterest: true
-});
-
-import { createSignal, onCleanup, onMount, createEffect } from 'solid-js';
-
-export function Embed(props: { url: string, optimize: boolean}) {
+export function Embed(props: { url: string; optimize: boolean }) {
   let wrapper: HTMLDivElement | undefined;
 
-  const [inited, setInited] = createSignal(false);
-
-  async function initEmbed() {
-    setInited(true);
+  async function init(isInitedOnce: boolean) {
     if (!wrapper) throw Error('embed div not found');
+    let embedo = new Embedo({
+      twitter: true,
+      instagram: true,
+      pinterest: true
+    });
 
     embedo.load(wrapper, props.url, {});
+    embedo = null;
   }
 
-  function destroyEmbed() {
-    setInited(false);
+  function destroy() {
+    if (!wrapper) throw Error('embed div not found');
 
-    const height = wrapper!.offsetHeight;
-    wrapper!.style.height = `${height}px`;
-  }
+    const height = wrapper.offsetHeight;
+    wrapper.style.height = `${height}px`;
 
-  let observer: IntersectionObserver;
-  onMount(async () => {
-    if (!wrapper) return;
-
-    if (!props.optimize) {
-      console.log('regular embed view');
-      initEmbed();
-      return;
+    while (wrapper.firstChild) {
+      wrapper.removeChild(wrapper.firstChild);
     }
-
-    const viewportHeight = window.innerHeight * 0.5;
-
-    observer = new IntersectionObserver(
-      (el) => {
-        const isIntersecting = el[0].isIntersecting;
-
-        console.log('intersercting', isIntersecting);
-        if (isIntersecting && !inited()) {
-          initEmbed();
-        }
-        if (!isIntersecting && inited()) {
-          destroyEmbed();
-        }
-      },
-      {
-        rootMargin: `${viewportHeight}px 0px ${viewportHeight}px 0px`,
-        threshold: 0.01
-      }
-    );
-    observer.observe(wrapper);
-  });
-
-  onCleanup(() => {
-    if (!wrapper || !observer) return;
-    observer.unobserve(wrapper);
-  });
+  }
 
   return (
-    <>
+    <LazyOffloading init={init} destroy={destroy} optimize={props.optimize}>
       <div ref={wrapper}></div>
-    </>
+    </LazyOffloading>
   );
 }
