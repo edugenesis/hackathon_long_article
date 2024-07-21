@@ -26,17 +26,17 @@ export function ScrollSwitch() {
 
   return (
     <Switch
-      class="flex items-center space-x-2 fixed bottom-6 right-6"
+      class="flex items-center space-x-2 fixed bottom-6 left-6"
       onChange={() => {
         setScrollableStore((prev) => ({
           ...prev,
           enabled: !prev.enabled
         }));
       }}>
-      <SwitchLabel>Scrollable</SwitchLabel>
       <SwitchControl checked={scrollableStore.enabled}>
         <SwitchThumb />
       </SwitchControl>
+      <SwitchLabel>Scrollable</SwitchLabel>
     </Switch>
   );
 }
