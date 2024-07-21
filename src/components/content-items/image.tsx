@@ -3,7 +3,7 @@ import { LazyOffloading } from '../LazyOffloading';
 
 export let isBannerSet: boolean = false;
 
-export function Image(props: { src: string; optimize: boolean; isBanner: boolean }) {
+export function Image(props: { src: string; optimize: boolean; isBanner: boolean; lazy: boolean }) {
   const [showImg, setShowImg] = createSignal(false);
 
   function init(isInitedOnce: boolean) {
@@ -23,7 +23,7 @@ export function Image(props: { src: string; optimize: boolean; isBanner: boolean
           src={props.src}
           alt=""
           class={`h-auto rounded-lg ${props.isBanner ? 'w-full object-cover h-[320px] ' : 'w-[75%]'} mx-auto`}
-          loading="lazy"
+          loading={props.lazy ? 'lazy' : 'eager'}
         />
       </Show>
     </LazyOffloading>
