@@ -19,9 +19,6 @@ export function Advert(props: { id: string; optimize: boolean }) {
   function destroy() {
     if (!div) throw Error('adv div not found');
 
-    const height = div.offsetHeight;
-    if (height != 0) div.style.height = `${height}px`;
-
     while (div.firstChild) {
       div.removeChild(div.firstChild);
     }

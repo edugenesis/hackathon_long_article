@@ -2,34 +2,31 @@
 import { LazyOffloading } from '../LazyOffloading';
 
 export function Embed(props: { url: string; optimize: boolean }) {
-  let wrapper: HTMLDivElement | undefined;
+  let div: HTMLDivElement | undefined;
 
   async function init(isInitedOnce: boolean) {
-    if (!wrapper) throw Error('embed div not found');
+    if (!div) throw Error('embed div not found');
     let embedo = new Embedo({
       twitter: true,
       instagram: true,
       pinterest: true
     });
 
-    embedo.load(wrapper, props.url, {});
+    embedo.load(div, props.url, {});
     embedo = null;
   }
 
   function destroy() {
-    if (!wrapper) throw Error('embed div not found');
+    if (!div) throw Error('embed div not found');
 
-    const height = wrapper.offsetHeight;
-    if (height != 0) wrapper.style.height = `${height}px`;
-
-    while (wrapper.firstChild) {
-      wrapper.removeChild(wrapper.firstChild);
+    while (div.firstChild) {
+      div.removeChild(div.firstChild);
     }
   }
 
   return (
     <LazyOffloading init={init} destroy={destroy} optimize={props.optimize}>
-      <div ref={wrapper}></div>
+      <div ref={div}></div>
     </LazyOffloading>
   );
 }

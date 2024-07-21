@@ -4,8 +4,6 @@ import { LazyOffloading } from '../LazyOffloading';
 export let isBannerSet: boolean = false;
 
 export function Image(props: { src: string; optimize: boolean; isBanner: boolean }) {
-  let wrapper: HTMLImageElement | undefined;
-
   const [showImg, setShowImg] = createSignal(false);
 
   function init(isInitedOnce: boolean) {
@@ -13,11 +11,6 @@ export function Image(props: { src: string; optimize: boolean; isBanner: boolean
   }
 
   function destroy() {
-    if (!wrapper) return;
-
-    const height = wrapper!.offsetHeight;
-    if (height != 0) wrapper.style.height = `${height}px`;
-
     setShowImg(false);
   }
 
@@ -25,16 +18,14 @@ export function Image(props: { src: string; optimize: boolean; isBanner: boolean
 
   return (
     <LazyOffloading init={init} destroy={destroy} optimize={props.optimize}>
-      <div ref={wrapper}>
-        <Show when={showImg()}>
-          <img
-            src={props.src}
-            alt=""
-            class={`h-auto rounded-lg ${props.isBanner ? 'w-full object-cover h-[320px] ' : 'w-[75%]'} mx-auto`}
-            loading="lazy"
-          />
-        </Show>
-      </div>
+      <Show when={showImg()}>
+        <img
+          src={props.src}
+          alt=""
+          class={`h-auto rounded-lg ${props.isBanner ? 'w-full object-cover h-[320px] ' : 'w-[75%]'} mx-auto`}
+          loading="lazy"
+        />
+      </Show>
     </LazyOffloading>
   );
 }

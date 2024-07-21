@@ -20,7 +20,13 @@ export function LazyOffloading(props: {
   }
 
   function destroy() {
+    if (!div) throw Error('div not found');
+
     setInited(false);
+
+    const height = div!.offsetHeight;
+    div.style.minHeight = `${height}px`;
+
     props.destroy();
   }
 
