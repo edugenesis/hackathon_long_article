@@ -17,11 +17,13 @@ export function Advert(props: { id: string; optimize: boolean }) {
   }
 
   function destroy() {
-    const height = div!.offsetHeight;
-    div!.style.height = `${height}px`;
+    if (!div) throw Error('adv div not found');
 
-    while (div!.firstChild) {
-      div!.removeChild(div!.firstChild);
+    const height = div.offsetHeight;
+    if (height != 0) div.style.height = `${height}px`;
+
+    while (div.firstChild) {
+      div.removeChild(div.firstChild);
     }
   }
 

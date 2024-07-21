@@ -20,7 +20,7 @@ export function Embed(props: { url: string; optimize: boolean }) {
     if (!wrapper) throw Error('embed div not found');
 
     const height = wrapper.offsetHeight;
-    wrapper.style.height = `${height}px`;
+    if (height != 0) wrapper.style.height = `${height}px`;
 
     while (wrapper.firstChild) {
       wrapper.removeChild(wrapper.firstChild);

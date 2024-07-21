@@ -12,8 +12,9 @@ export function Image(props: { src: string; optimize: boolean, isBanner: boolean
 
   function destroy() {
     if (!img) return;
+
     const height = img!.offsetHeight;
-    img!.style.height = `${height}px`;
+    if (height != 0) img.style.height = `${height}px`;
 
     img.removeAttribute('src');
   }
