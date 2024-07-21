@@ -12,6 +12,7 @@ import {
 export interface Options {
   ads: 'disabled' | 'enabled' | 'optimized';
   embeds: 'disabled' | 'enabled' | 'optimized';
+  imgs: 'disabled' | 'enabled' | 'optimized';
   lazyIframes: 'disabled' | 'enabled';
 }
 
@@ -22,6 +23,7 @@ const loadOptions = (): Options => {
   }
   return {
     ads: 'optimized',
+    imgs: 'optimized',
     embeds: 'optimized',
     lazyIframes: 'disabled'
   };
@@ -61,6 +63,19 @@ export function OptionsDropdown() {
         <DropdownMenuRadioGroup
           value={options().embeds}
           onChange={(value) => updateOptions('embeds', value as Options['embeds'])}>
+          <DropdownMenuRadioItem value="disabled">Disabled</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="enabled">Enabled</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="optimized">Optimized</DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuItem disabled class="font-bold">
+          Images
+        </DropdownMenuItem>
+        <DropdownMenuRadioGroup
+          value={options().imgs}
+          onChange={(value) => updateOptions('imgs', value as Options['imgs'])}>
           <DropdownMenuRadioItem value="disabled">Disabled</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="enabled">Enabled</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="optimized">Optimized</DropdownMenuRadioItem>

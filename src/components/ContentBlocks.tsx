@@ -83,11 +83,13 @@ export function ContentApiBlocks() {
 }
 
 function getElementForBlock(content: ContentFileBlock | ContentApiBlock, options: Options) {
-  console.log('Embeds:', options.embeds, 'Ads:', options.ads, 'Block:', content);
   if (options.ads === 'disabled' && content.type === 'adv') {
     return null;
-  }
-  if (options.embeds === 'disabled' && content.type === 'embed') {
+  } else if (options.ads === 'disabled' && content.type === 'video') {
+    return null;
+  } else if (options.embeds === 'disabled' && content.type === 'embed') {
+    return null;
+  } else if (options.imgs === 'disabled' && content.type === 'image') {
     return null;
   }
 
@@ -99,7 +101,14 @@ function getElementForBlock(content: ContentFileBlock | ContentApiBlock, options
     case 'adv':
       return <Advert id={content.id!} optimize={options.ads === 'optimized'} />;
     case 'image':
-      return <Image src={content.src!} isBanner={!isBannerSet} optimize={true} lazy={options.lazyIframes == 'enabled'} />;
+      return (
+        <Image
+          src={content.src!}
+          isBanner={!isBannerSet}
+          optimize={options.imgs == 'optimized'}
+          lazy={options.lazyIframes == 'enabled'}
+        />
+      );
     case 'embed':
       return <Embed url={content.url!} optimize={options.embeds === 'optimized'} />;
     case 'video':
