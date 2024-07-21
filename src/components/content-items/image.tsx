@@ -21,7 +21,7 @@ export function Image(props: { src: string; optimize: boolean; isBanner: boolean
     setShowImg(false);
   }
 
-  if (props.isBanner && !isBannerSet) isBannerSet = true;
+  if (props.isBanner) isBannerSet = true;
 
   return (
     <LazyOffloading init={init} destroy={destroy} optimize={props.optimize}>
@@ -30,7 +30,7 @@ export function Image(props: { src: string; optimize: boolean; isBanner: boolean
           <img
             src={props.src}
             alt=""
-            class={`h-auto rounded-lg ${props.isBanner ? 'w-full h-80 object-cover' : 'w-[75%]'} mx-auto`}
+            class={`h-auto rounded-lg ${props.isBanner ? 'w-full object-cover h-[320px] ' : 'w-[75%]'} mx-auto`}
             loading="lazy"
           />
         </Show>
