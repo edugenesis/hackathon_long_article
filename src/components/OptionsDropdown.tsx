@@ -12,7 +12,7 @@ import {
 export interface Options {
   ads: 'disabled' | 'enabled' | 'optimized';
   embeds: 'disabled' | 'enabled' | 'optimized';
-  lazyLoad: 'disabled' | 'enabled';
+  lazyIframes: 'disabled' | 'enabled';
 }
 
 const loadOptions = (): Options => {
@@ -22,7 +22,8 @@ const loadOptions = (): Options => {
   }
   return {
     ads: 'optimized',
-    embeds: 'optimized'
+    embeds: 'optimized',
+    lazyIframes: 'disabled'
   };
 };
 
@@ -66,11 +67,11 @@ export function OptionsDropdown() {
         </DropdownMenuRadioGroup>
 
         <DropdownMenuItem disabled class="font-bold">
-          Lazy
+          Force Lazy Iframes
         </DropdownMenuItem>
         <DropdownMenuRadioGroup
-          value={String(options().lazyLoad)}
-          onChange={(value) => updateOptions('lazyLoad', value as Options['lazyLoad'])}>
+          value={String(options().lazyIframes)}
+          onChange={(value) => updateOptions('lazyIframes', value as Options['lazyIframes'])}>
           <DropdownMenuRadioItem value="enabled">Enabled</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="disabled">Disabled</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>

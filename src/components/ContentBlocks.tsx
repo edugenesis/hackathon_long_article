@@ -8,7 +8,7 @@ import { Video } from '~/components/content-items/video';
 import { data } from '../../article';
 import { options, Options } from '~/components/OptionsDropdown';
 import { initPbJS } from '~/lib/ad_helpers';
-import { disableAllIframesLazy, disableMakeAllIframesLazy, runMakeAllIframesLazy } from '~/lib/make_all_iframes_lazy';
+import { runMakeAllIframesLazy } from '~/lib/make_all_iframes_lazy';
 
 type ContentFileBlock = (typeof data)['data'][number];
 
@@ -41,8 +41,7 @@ export function ContentBlocks() {
   const [optionsValue] = createSignal(options);
 
   createEffect(() => {
-    if (options().lazyLoad === 'enabled') runMakeAllIframesLazy();
-    else disableAllIframesLazy();
+    if (options().lazyIframes === 'enabled') runMakeAllIframesLazy();
     initPbJS();
   });
 
@@ -61,8 +60,7 @@ export function ContentApiBlocks() {
   const [optionsValue] = createSignal(options);
 
   createEffect(() => {
-    if (options().lazyLoad === 'enabled') runMakeAllIframesLazy();
-    else disableAllIframesLazy();
+    if (options().lazyIframes === 'enabled') runMakeAllIframesLazy();
     initPbJS();
   });
 
@@ -101,7 +99,7 @@ function getElementForBlock(content: ContentFileBlock | ContentApiBlock, options
     case 'adv':
       return <Advert id={content.id!} optimize={options.ads === 'optimized'} />;
     case 'image':
-      return <Image src={content.src!} isBanner={!isBannerSet} optimize={true} lazy={options.lazyLoad === 'enabled'} />;
+      return <Image src={content.src!} isBanner={!isBannerSet} optimize={true} lazy={options.lazyIframes == 'enabled'} />;
     case 'embed':
       return <Embed url={content.url!} optimize={options.embeds === 'optimized'} />;
     case 'video':
