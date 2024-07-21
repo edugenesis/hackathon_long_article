@@ -1,6 +1,8 @@
 ﻿import { LazyOffloading } from '../LazyOffloading';
 
-export function Image(props: { src: string; optimize: boolean }) {
+export let isBannerSet: boolean = false;
+
+export function Image(props: { src: string; optimize: boolean, isBanner: boolean }) {
   let img: HTMLImageElement | undefined;
 
   function init(isInitedOnce: boolean) {
@@ -15,10 +17,12 @@ export function Image(props: { src: string; optimize: boolean }) {
 
     img.removeAttribute('src');
   }
-
+  
+  if (props.isBanner && !isBannerSet) isBannerSet = true;
+  
   return (
     <LazyOffloading init={init} destroy={destroy} optimize={props.optimize}>
-      <img alt="" class="h-auto rounded-lg" loading="lazy" ref={img} />
+      <img src={props.src} alt="" class={`h-auto rounded-lg ${props.isBanner ? 'w-full h-80 object-cover' : 'w-[75%]'} mx-auto`} loading="lazy" ref={img}/>
     </LazyOffloading>
   );
 }

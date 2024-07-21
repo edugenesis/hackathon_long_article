@@ -1,7 +1,7 @@
 ﻿import { createResource, createSignal, For, Match, onMount, Suspense, Switch } from 'solid-js';
 import { Paragraph } from '~/components/content-items/paragraph';
 import { Advert } from '~/components/content-items/adv';
-import { Image } from '~/components/content-items/image';
+import {isBannerSet, Image} from '~/components/content-items/image';
 import { Embed } from '~/components/content-items/embed';
 import { Title } from '~/components/content-items/title';
 import { Video } from '~/components/content-items/video';
@@ -99,7 +99,7 @@ function getElementForBlock(content: ContentFileBlock | ContentApiBlock, options
     case 'adv':
       return <Advert id={content.id!} optimize={options.ads === 'optimized'} />;
     case 'image':
-      return <Image src={content.src!} />;
+      return <Image src={content.src!} isBanner={!isBannerSet} optimize={true}/>;
     case 'embed':
       return <Embed url={content.url!} optimize={options.embeds === 'optimized'} />;
     case 'video':
