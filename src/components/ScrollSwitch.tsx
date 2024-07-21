@@ -6,20 +6,20 @@ const scrollOffsetPX = 15;
 const scrollFunctionTriggerInterval = 350;
 
 export function ScrollSwitch() {
-  function scrollHandler() {
+  function doAutoScroll() {
     if (!scrollableStore.enabled) return;
+
     const newOffset = window.scrollY + scrollOffsetPX;
-    scrollTo({
-      top: newOffset,
-      behavior: 'smooth'
+    requestAnimationFrame(() => {
+      scrollTo({
+        top: newOffset,
+        behavior: 'smooth'
+      });
     });
   }
 
   createEffect(() => {
-    const scrollInterval = setInterval(() => {
-      requestAnimationFrame(() => {});
-      scrollHandler();
-    }, scrollFunctionTriggerInterval);
+    const scrollInterval = setInterval(doAutoScroll, scrollFunctionTriggerInterval);
 
     return () => clearInterval(scrollInterval);
   });
